@@ -1,98 +1,128 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import PokemonList from '@/components/ui/pokemon-list';
+import { Fonts, FontSizes, FontWeights } from '@/constants/fonts';
+import { usePokemonInfiniteList, type PokemonWithId } from '@/hooks/use-pokemon';
+import React, { useMemo, useState } from 'react';
+import { ActivityIndicator, StyleSheet, Text, TextInput, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { HelloWave } from '@/components/hello-wave';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
+export default function PokemonScreen() {
+  const { 
+    data, 
+    isLoading, 
+    error, 
+    fetchNextPage, 
+    hasNextPage, 
+    isFetchingNextPage 
+  } = usePokemonInfiniteList();
+  const [query, setQuery] = useState('');
 
-export default function HomeScreen() {
+  // Flatten all pages into a single array (limited to 150 Pokemon)
+  const allPokemon = useMemo(() => {
+    if (!data?.pages) return [];
+    
+    return data.pages.flatMap(page => 
+      page.results.map((pokemon: PokemonWithId) => ({
+        id: Number(pokemon.id),
+        name: pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)
+      }))
+    );
+  }, [data?.pages]);
+
+  // Filter Pokemon based on search query
+  const filteredPokemon = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) return allPokemon;
+    return allPokemon.filter((pokemon) => 
+      pokemon.name.toLowerCase().includes(q)
+    );
+  }, [allPokemon, query]);
+
+  const handleLoadMore = () => {
+    if (hasNextPage && !isFetchingNextPage) {
+      fetchNextPage();
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <View style={styles.centerContainer}>
+          <ActivityIndicator size="large" />
+          <Text>Loading Pokémon...</Text>
+        </View>
+      </SafeAreaView>
+    );
+  }
+
+  if (error) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <View style={styles.centerContainer}>
+          <Text>Error loading Pokémon: {(error as Error).message}</Text>
+        </View>
+      </SafeAreaView>
+    );
+  }
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
+    <SafeAreaView style={styles.container}>
+      <View style={styles.header}>
+        <TextInput
+          value={query}
+          onChangeText={setQuery}
+          placeholder="Search Pokémon..."
+          placeholderTextColor="#666"
+          style={styles.search}
+          clearButtonMode="while-editing"
+          accessibilityLabel="Search Pokémon"
         />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
-              />
-            </Link.Menu>
-          </Link.Menu>
-        </Link>
+        <Text style={styles.title}>All Pokémon</Text>
+      </View>
 
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+      <PokemonList 
+        data={filteredPokemon} 
+        onEndReached={handleLoadMore}
+        onEndReachedThreshold={0.1}
+        isLoadingMore={isFetchingNextPage}
+        hasNextPage={hasNextPage}
+      />
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
+  container: {
+    flex: 1,
+    backgroundColor: '#f0f8ff',
+    paddingHorizontal: 12,
+    paddingTop: 12,
+  },
+  header: {
+    marginBottom: 12,
+  },
+  centerContainer: {
+    flex: 1,
+    justifyContent: 'center',
     alignItems: 'center',
-    gap: 8,
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  title: {
+    fontSize: FontSizes.xl,
+    fontFamily: Fonts.bold,
+    fontWeight: FontWeights.bold,
+    color: '#111',
+    marginTop: 8,
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  search: {
+    height: 40,
+    backgroundColor: '#b3aeae36',
+    borderRadius: 10,
+    paddingHorizontal: 12,
+    borderWidth: 1,
+    borderColor: '#e6e6e6',
+    color: '#111',
+    fontSize: FontSizes.base,
+    fontFamily: Fonts.regular,
+    fontWeight: FontWeights.regular,
   },
+  // Card grid styles are handled inside PokemonList
 });
