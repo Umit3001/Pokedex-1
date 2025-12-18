@@ -22,10 +22,10 @@ export default function ShareButton({ pokemonId, pokemonName, imageUrl }: ShareP
         url: imageUrl || `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonId}.png`,
       };
 
-      const result = await Share.share(shareContent);
+      await Share.share(shareContent);
       
       // Share completed or dismissed - no logging needed
-    } catch (error: any) {
+    } catch {
       Alert.alert('Error', 'Unable to share this Pokémon');
     }
   };

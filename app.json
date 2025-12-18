@@ -49,7 +49,8 @@
             "node_modules/@expo-google-fonts/inter/Inter_500Medium.ttf",
             "node_modules/@expo-google-fonts/inter/Inter_600SemiBold.ttf",
             "node_modules/@expo-google-fonts/inter/Inter_700Bold.ttf",
-            "node_modules/@expo-google-fonts/inter/Inter_900Black.ttf"
+            "node_modules/@expo-google-fonts/inter/Inter_900Black.ttf",
+            "./assets/fonts/Rubik-Italic-Variable.ttf"
           ]
         }
       ]

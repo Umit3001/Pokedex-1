@@ -88,7 +88,7 @@ Join our community of developers creating universal apps.
 ### Optional items
 Each optional item is worth 1 extra point.
 
-- [ ] Use of animations (e.g. loading in UI elements).
+- [x] Use of animations (e.g. loading in UI elements).
 - [ ] Dark mode support (making use of theming).
 - [x] Pokémon list is paginated and infinite scroll is used.
 - [ ] Clean Typescript: no use of `any`, typecasting `as SomeType`, or TS ignore comments.

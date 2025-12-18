@@ -1,10 +1,11 @@
+import AnimatedLoader from '@/components/ui/animated-loader';
 import BattleModal from '@/components/ui/battle-modal';
 import Favorite from '@/components/ui/favorite';
 import { PokemonImage } from '@/components/ui/pokemon-image';
 import { useEvolutionChain, usePokemonByName, usePokemonSpecies } from '@/hooks/use-pokemon';
 import { Ionicons } from '@expo/vector-icons';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View, useWindowDimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { TabBar, TabView } from 'react-native-tab-view';
@@ -19,6 +20,7 @@ export default function PokemonDetailScreen() {
     { key: 'evolution', title: 'Evolution' },
   ]);
   const [battleModalVisible, setBattleModalVisible] = useState(false);
+  const [displayLoading, setDisplayLoading] = useState(true);
   
   // Accept either /pokemon/[name] or a stray ?id= param for robustness
   const params = useLocalSearchParams<{ name?: string | string[]; id?: string | string[] }>();
@@ -31,6 +33,18 @@ export default function PokemonDetailScreen() {
   const { data: pokemon, isLoading, error } = usePokemonByName(key);
   const { data: species, isLoading: speciesLoading, error: speciesError } = usePokemonSpecies(pokemon?.id);
   const { data: evolutionChain, isLoading: evolutionLoading, error: evolutionError } = useEvolutionChain(species?.evolution_chain?.url);
+
+  // Ensure loader displays for minimum 1.5 seconds
+  useEffect(() => {
+    if (!isLoading) {
+      const timer = setTimeout(() => {
+        setDisplayLoading(false);
+      }, 1500);
+      return () => clearTimeout(timer);
+    } else {
+      setDisplayLoading(true);
+    }
+  }, [isLoading]);
 
   // Tab render functions
   const renderScene = ({ route }: any) => {
@@ -57,11 +71,11 @@ export default function PokemonDetailScreen() {
     />
   );
 
-  if (isLoading) {
+  if (isLoading || displayLoading) {
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.loadingContainer}>
-          <ActivityIndicator size="large" color="#5631E8" />
+          <AnimatedLoader size="large" color="#5631E8" />
           <Text style={styles.loadingText}>Loading Pokémon...</Text>
         </View>
       </SafeAreaView>

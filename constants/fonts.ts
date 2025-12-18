@@ -32,6 +32,11 @@ export const Fonts = {
     ios: 'Inter-Black',
     default: 'Inter_900Black',
   }),
+  rubikItalic: Platform.select({
+    android: 'Rubik-Italic-Variable',
+    ios: 'Rubik-Italic-Variable',
+    default: 'Rubik-Italic-Variable',
+  }),
 } as const;
 
 /**

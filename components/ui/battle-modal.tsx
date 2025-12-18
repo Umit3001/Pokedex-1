@@ -4,19 +4,19 @@ import { usePokemonByName } from '@/hooks/use-pokemon';
 import { Ionicons } from '@expo/vector-icons';
 import React, { useEffect, useState } from 'react';
 import {
-    ActivityIndicator,
-    Alert,
-    Animated,
-    Dimensions,
-    Modal,
-    Pressable,
-    ScrollView,
-    StyleSheet,
-    Text,
-    View,
+  ActivityIndicator,
+  Alert,
+  Animated,
+  Dimensions,
+  Modal,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
 } from 'react-native';
 
-const { width } = Dimensions.get('window');
+Dimensions.get('window');
 
 // Pokemon battle data type
 interface BattlePokemon {
@@ -115,7 +115,7 @@ export default function BattleModal({ visible, onClose, opponentPokemonName }: B
           types: playerData.types.map(t => t.type.name),
         };
         setPlayerPokemon(pokemon);
-      } catch (error) {
+      } catch {
         // Pokemon creation failed - silently handle error
       }
     }
@@ -143,7 +143,7 @@ export default function BattleModal({ visible, onClose, opponentPokemonName }: B
           types: opponentData.types.map(t => t.type.name),
         };
         setOpponentPokemon(pokemon);
-      } catch (error) {
+      } catch {
         // Pokemon creation failed - silently handle error
       }
     }

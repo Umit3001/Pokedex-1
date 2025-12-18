@@ -1,8 +1,10 @@
+import { ThemedText } from '@/components/themed-text';
+import AnimatedLoader from '@/components/ui/animated-loader';
 import PokemonList from '@/components/ui/pokemon-list';
 import { Fonts, FontSizes, FontWeights } from '@/constants/fonts';
 import { useFavorites } from '@/hooks/use-favorites';
 import React, { useMemo } from 'react';
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function FavoritesScreen() {
@@ -21,7 +23,7 @@ export default function FavoritesScreen() {
           <Text style={styles.title}>My Favorites</Text>
         </View>
         <View style={styles.loadingContainer}>
-          <ActivityIndicator size="large" color="#5631E8" />
+          <AnimatedLoader size="large" color="#5631E8" />
           <Text style={styles.loadingText}>Loading favorites...</Text>
         </View>
       </SafeAreaView>
@@ -47,7 +49,7 @@ export default function FavoritesScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>My Favorites</Text>
+        <ThemedText type="rubik">My Favorites</ThemedText>
         <Text style={styles.subtitle}>
           {favorites.length} {favorites.length === 1 ? 'Pokémon' : 'Pokémon'} saved
         </Text>
