@@ -2,11 +2,12 @@ import AnimatedLoader from '@/components/ui/animated-loader';
 import BattleModal from '@/components/ui/battle-modal';
 import Favorite from '@/components/ui/favorite';
 import { PokemonImage } from '@/components/ui/pokemon-image';
+import { Fonts, FontWeights } from '@/constants/fonts';
 import { useEvolutionChain, usePokemonByName, usePokemonSpecies } from '@/hooks/use-pokemon';
 import { Ionicons } from '@expo/vector-icons';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View, useWindowDimensions } from 'react-native';
+import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, useWindowDimensions, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { TabBar, TabView } from 'react-native-tab-view';
 
@@ -480,7 +481,8 @@ const styles = StyleSheet.create({
   battleButtonText: {
     color: '#fff',
     fontSize: 14,
-    fontWeight: '600',
+    fontFamily: Fonts.regular,
+    fontWeight: FontWeights.medium,
   },
   favoriteContainer: {
     alignSelf: 'flex-start',
@@ -497,6 +499,8 @@ const styles = StyleSheet.create({
   loadingText: {
     marginTop: 10,
     fontSize: 16,
+    fontFamily: Fonts.regular,
+    fontWeight: FontWeights.medium,
     color: '#5631E8',
   },
   errorContainer: {
@@ -506,6 +510,8 @@ const styles = StyleSheet.create({
   },
   errorText: {
     fontSize: 18,
+    fontFamily: Fonts.regular,
+    fontWeight: FontWeights.medium,
     color: '#666',
   },
   header: {
@@ -519,12 +525,15 @@ const styles = StyleSheet.create({
   },
   pokemonName: {
     fontSize: 32,
-    fontWeight: 'bold',
+    fontFamily: Fonts.regular,
+    fontWeight: FontWeights.medium,
     color: '#0E0940',
     textTransform: 'capitalize',
   },
   pokemonId: {
     fontSize: 18,
+    fontFamily: Fonts.regular,
+    fontWeight: FontWeights.medium,
     color: '#666',
     marginTop: 0,
   },
@@ -551,7 +560,8 @@ const styles = StyleSheet.create({
   typeInlineText: {
     color: '#333',
     fontSize: 14,
-    fontWeight: '600',
+    fontFamily: Fonts.regular,
+    fontWeight: FontWeights.medium,
     textTransform: 'capitalize',
   },
   imageContainer: {
@@ -563,6 +573,8 @@ const styles = StyleSheet.create({
   },
   placeholderText: {
     fontSize: 16,
+    fontFamily: Fonts.regular,
+    fontWeight: FontWeights.medium,
     color: '#999',
   },
   detailsContainer: {
@@ -573,7 +585,8 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontFamily: Fonts.regular,
+    fontWeight: FontWeights.medium,
     color: '#0E0940',
     marginBottom: 12,
   },
@@ -590,7 +603,8 @@ const styles = StyleSheet.create({
   },
   typeText: {
     color: '#fff',
-    fontWeight: 'bold',
+    fontFamily: Fonts.regular,
+    fontWeight: FontWeights.medium,
     textTransform: 'capitalize',
   },
   tabViewContainer: {
@@ -612,7 +626,8 @@ const styles = StyleSheet.create({
   },
   tabLabel: {
     fontSize: 16,
-    fontWeight: '600',
+    fontFamily: Fonts.regular,
+    fontWeight: FontWeights.medium,
     textTransform: 'none',
   },
 });
@@ -629,7 +644,8 @@ const tabContentStyles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontFamily: Fonts.regular,
+    fontWeight: FontWeights.medium,
     color: '#0E0940',
     marginBottom: 12,
   },
@@ -643,11 +659,14 @@ const tabContentStyles = StyleSheet.create({
   },
   infoLabel: {
     fontSize: 16,
+    fontFamily: Fonts.regular,
+    fontWeight: FontWeights.medium,
     color: '#666',
   },
   infoValue: {
     fontSize: 16,
-    fontWeight: '600',
+    fontFamily: Fonts.regular,
+    fontWeight: FontWeights.medium,
     color: '#0E0940',
   },
   abilityItem: {
@@ -659,6 +678,8 @@ const tabContentStyles = StyleSheet.create({
   },
   abilityName: {
     fontSize: 16,
+    fontFamily: Fonts.regular,
+    fontWeight: FontWeights.medium,
     color: '#0E0940',
     flex: 1,
   },
@@ -666,13 +687,16 @@ const tabContentStyles = StyleSheet.create({
     backgroundColor: '#FF6B6B',
     color: '#fff',
     fontSize: 12,
-    fontWeight: 'bold',
+    fontFamily: Fonts.regular,
+    fontWeight: FontWeights.medium,
     paddingHorizontal: 8,
     paddingVertical: 4,
     borderRadius: 12,
   },
   description: {
     fontSize: 16,
+    fontFamily: Fonts.regular,
+    fontWeight: FontWeights.medium,
     lineHeight: 24,
     color: '#666',
   },
@@ -683,12 +707,15 @@ const tabContentStyles = StyleSheet.create({
   },
   statName: {
     fontSize: 14,
+    fontFamily: Fonts.regular,
+    fontWeight: FontWeights.medium,
     color: '#666',
     width: 100,
   },
   statValue: {
     fontSize: 16,
-    fontWeight: 'bold',
+    fontFamily: Fonts.regular,
+    fontWeight: '500',
     color: '#0E0940',
     width: 40,
     textAlign: 'right',
@@ -707,6 +734,8 @@ const tabContentStyles = StyleSheet.create({
   },
   placeholder: {
     fontSize: 16,
+    fontFamily: Fonts.regular,
+    fontWeight: FontWeights.medium,
     color: '#999',
     textAlign: 'center',
     paddingVertical: 40,
@@ -728,13 +757,16 @@ const tabContentStyles = StyleSheet.create({
   },
   evolutionName: {
     fontSize: 14,
-    fontWeight: '600',
+    fontFamily: Fonts.regular,
+    fontWeight: FontWeights.medium,
     color: '#0E0940',
     marginTop: 8,
     textAlign: 'center',
   },
   evolutionId: {
     fontSize: 12,
+    fontFamily: Fonts.regular,
+    fontWeight: FontWeights.medium,
     color: '#666',
     marginTop: 2,
   },
@@ -744,8 +776,9 @@ const tabContentStyles = StyleSheet.create({
   },
   arrowText: {
     fontSize: 24,
+    fontFamily: Fonts.regular,
+    fontWeight: FontWeights.medium,
     color: '#5631E8',
-    fontWeight: 'bold',
   },
   evolutionRequirement: {
     backgroundColor: '#fff',
@@ -758,9 +791,10 @@ const tabContentStyles = StyleSheet.create({
   },
   requirementText: {
     fontSize: 10,
+    fontFamily: Fonts.regular,
+    fontWeight: FontWeights.medium,
     color: '#666',
     textAlign: 'center',
-    fontWeight: '500',
   },
   loadingContainer: {
     alignItems: 'center',
@@ -768,6 +802,8 @@ const tabContentStyles = StyleSheet.create({
   },
   errorText: {
     fontSize: 16,
+    fontFamily: Fonts.regular,
+    fontWeight: FontWeights.medium,
     color: '#FF6B6B',
     textAlign: 'center',
     paddingVertical: 40,

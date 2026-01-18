@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   title: {
-    fontSize: FontSizes.xl,
+    fontSize: FontSizes['2xl'],
     fontFamily: Fonts.bold,
     fontWeight: FontWeights.bold,
     color: '#111',
@@ -122,7 +122,6 @@ const styles = StyleSheet.create({
     color: '#111',
     fontSize: FontSizes.base,
     fontFamily: Fonts.regular,
-    fontWeight: FontWeights.regular,
+    fontWeight: FontWeights.medium,
   },
-  // Card grid styles are handled inside PokemonList
 });

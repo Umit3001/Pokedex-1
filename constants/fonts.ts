@@ -1,41 +1,42 @@
 import { Platform } from 'react-native';
 
 /**
- * Font families with platform-specific names for embedded Google Fonts
+ * Font families with platform-specific names
  * 
- * Android uses the font file name (e.g., Inter_400Regular)
- * iOS uses the PostScript font name (e.g., Inter-Regular)
+ * Primary font: Rubrik-Medium
+ * Android uses the font family name (e.g., Rubik)
+ * iOS uses the PostScript font name (e.g., Rubik-Medium)
  */
 export const Fonts = {
   regular: Platform.select({
-    android: 'Inter_400Regular',
-    ios: 'Inter-Regular',
-    default: 'Inter_400Regular',
+    android: 'Rubik',
+    ios: 'Rubik-Medium',
+    default: 'Rubik',
   }),
   medium: Platform.select({
-    android: 'Inter_500Medium',
-    ios: 'Inter-Medium',
-    default: 'Inter_500Medium',
+    android: 'Rubik',
+    ios: 'Rubik-Medium',
+    default: 'Rubik',
   }),
   semiBold: Platform.select({
-    android: 'Inter_600SemiBold',
-    ios: 'Inter-SemiBold',
-    default: 'Inter_600SemiBold',
+    android: 'Rubik',
+    ios: 'Rubik-Medium',
+    default: 'Rubik',
   }),
   bold: Platform.select({
-    android: 'Inter_700Bold',
-    ios: 'Inter-Bold',
-    default: 'Inter_700Bold',
+    android: 'Rubik',
+    ios: 'Rubik-Medium',
+    default: 'Rubik',
   }),
   black: Platform.select({
-    android: 'Inter_900Black',
-    ios: 'Inter-Black',
-    default: 'Inter_900Black',
+    android: 'Rubik',
+    ios: 'Rubik-Medium',
+    default: 'Rubik',
   }),
   rubikItalic: Platform.select({
-    android: 'Rubik-Italic-Variable',
+    android: 'Rubik',
     ios: 'Rubik-Italic-Variable',
-    default: 'Rubik-Italic-Variable',
+    default: 'Rubik',
   }),
 } as const;
 
@@ -43,10 +44,12 @@ export const Fonts = {
  * Font weights for consistent typography
  */
 export const FontWeights = {
+  light: '300' as const,
   regular: '400' as const,
   medium: '500' as const,
   semiBold: '600' as const,
   bold: '700' as const,
+  extraBold: '800' as const,
   black: '900' as const,
 } as const;
 

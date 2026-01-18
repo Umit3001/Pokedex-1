@@ -1,4 +1,3 @@
-import { ThemedText } from '@/components/themed-text';
 import AnimatedLoader from '@/components/ui/animated-loader';
 import PokemonList from '@/components/ui/pokemon-list';
 import { Fonts, FontSizes, FontWeights } from '@/constants/fonts';
@@ -49,7 +48,7 @@ export default function FavoritesScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <ThemedText type="rubik">My Favorites</ThemedText>
+        <Text style={styles.title}>My Favorites</Text>
         <Text style={styles.subtitle}>
           {favorites.length} {favorites.length === 1 ? 'Pokémon' : 'Pokémon'} saved
         </Text>
@@ -64,31 +63,31 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#f0f8ff' },
   header: { paddingHorizontal: 16, paddingVertical: 16 },
   title: { 
-    fontSize: FontSizes['2xl'], 
-    fontFamily: Fonts.bold, 
-    fontWeight: FontWeights.bold, 
-    color: '#0E0940', 
+    fontSize: FontSizes['2xl'],
+      fontFamily: Fonts.bold,
+      fontWeight: FontWeights.bold,
+      color: '#111',
     marginBottom: 4 
   },
   subtitle: { 
     fontSize: FontSizes.base, 
-    fontFamily: Fonts.medium, 
-    fontWeight: FontWeights.medium, 
+    fontFamily: Fonts.regular, 
+    fontWeight: FontWeights.medium,
     color: '#666' 
   },
   loadingContainer: { flex: 1, justifyContent: 'center', alignItems: 'center', padding: 20 },
   loadingText: { 
     marginTop: 10, 
     fontSize: FontSizes.base, 
-    fontFamily: Fonts.medium, 
-    fontWeight: FontWeights.medium, 
+    fontFamily: Fonts.regular, 
+    fontWeight: FontWeights.medium,
     color: '#5631E8' 
   },
   emptyContainer: { flex: 1, justifyContent: 'center', alignItems: 'center', padding: 40 },
   emptyText: { 
     fontSize: FontSizes.xl, 
-    fontFamily: Fonts.bold, 
-    fontWeight: FontWeights.bold, 
+    fontFamily: Fonts.regular, 
+    fontWeight: FontWeights.medium,
     color: '#666', 
     marginBottom: 8, 
     textAlign: 'center' 
@@ -96,7 +95,7 @@ const styles = StyleSheet.create({
   emptySubtext: { 
     fontSize: FontSizes.base, 
     fontFamily: Fonts.regular, 
-    fontWeight: FontWeights.regular, 
+    fontWeight: FontWeights.medium,
     color: '#999', 
     textAlign: 'center', 
     lineHeight: 22 
